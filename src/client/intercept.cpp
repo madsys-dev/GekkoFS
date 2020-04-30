@@ -36,19 +36,19 @@ static inline int hook(long syscall_number,
 
     switch (syscall_number) {
 
-    case SYS_open:
-        *result = hook_openat(AT_FDCWD,
-                              reinterpret_cast<char*>(arg0),
-                              static_cast<int>(arg1),
-                              static_cast<mode_t>(arg2));
-        break;
+    // case SYS_open:
+    //     *result = hook_openat(AT_FDCWD,
+    //                           reinterpret_cast<char*>(arg0),
+    //                           static_cast<int>(arg1),
+    //                           static_cast<mode_t>(arg2));
+    //     break;
 
-    case SYS_creat:
-        *result = hook_openat(AT_FDCWD,
-                              reinterpret_cast<const char*>(arg0),
-                              O_WRONLY | O_CREAT | O_TRUNC,
-                              static_cast<mode_t>(arg1));
-        break;
+    // case SYS_creat:
+    //     *result = hook_openat(AT_FDCWD,
+    //                           reinterpret_cast<const char*>(arg0),
+    //                           O_WRONLY | O_CREAT | O_TRUNC,
+    //                           static_cast<mode_t>(arg1));
+    //     break;
 
     case SYS_openat:
         *result = hook_openat(static_cast<int>(arg0),
@@ -61,15 +61,15 @@ static inline int hook(long syscall_number,
         *result = hook_close(static_cast<int>(arg0));
         break;
 
-    case SYS_stat:
-        *result = hook_stat(reinterpret_cast<char*>(arg0),
-                            reinterpret_cast<struct stat*>(arg1));
-        break;
+    // case SYS_stat:
+    //     *result = hook_stat(reinterpret_cast<char*>(arg0),
+    //                         reinterpret_cast<struct stat*>(arg1));
+    //     break;
 
-    case SYS_lstat:
-        *result = hook_lstat(reinterpret_cast<char*>(arg0),
-                             reinterpret_cast<struct stat*>(arg1));
-        break;
+    // case SYS_lstat:
+    //     *result = hook_lstat(reinterpret_cast<char*>(arg0),
+    //                          reinterpret_cast<struct stat*>(arg1));
+    //     break;
 
     case SYS_fstat:
         *result = hook_fstat(static_cast<int>(arg0),
@@ -122,11 +122,11 @@ static inline int hook(long syscall_number,
                                static_cast<unsigned long>(arg4));
         break;
 
-    case SYS_unlink:
-        *result = hook_unlinkat(AT_FDCWD,
-                                reinterpret_cast<const char *>(arg0),
-                                0);
-        break;
+    // case SYS_unlink:
+    //     *result = hook_unlinkat(AT_FDCWD,
+    //                             reinterpret_cast<const char *>(arg0),
+    //                             0);
+    //     break;
 
     case SYS_unlinkat:
         *result = hook_unlinkat(static_cast<int>(arg0),
@@ -134,17 +134,17 @@ static inline int hook(long syscall_number,
                                 static_cast<int>(arg2));
         break;
 
-    case SYS_rmdir:
-        *result = hook_unlinkat(AT_FDCWD,
-                                reinterpret_cast<const char *>(arg0),
-                                AT_REMOVEDIR);
-        break;
+    // case SYS_rmdir:
+    //     *result = hook_unlinkat(AT_FDCWD,
+    //                             reinterpret_cast<const char *>(arg0),
+    //                             AT_REMOVEDIR);
+    //     break;
 
-    case SYS_symlink:
-        *result = hook_symlinkat(reinterpret_cast<const char *>(arg0),
-                                 AT_FDCWD,
-                                 reinterpret_cast<const char *>(arg1));
-        break;
+    // case SYS_symlink:
+    //     *result = hook_symlinkat(reinterpret_cast<const char *>(arg0),
+    //                              AT_FDCWD,
+    //                              reinterpret_cast<const char *>(arg1));
+    //     break;
 
     case SYS_symlinkat:
         *result = hook_symlinkat(reinterpret_cast<const char *>(arg0),
@@ -152,10 +152,10 @@ static inline int hook(long syscall_number,
                                  reinterpret_cast<const char *>(arg2));
         break;
 
-    case SYS_access:
-        *result = hook_access(reinterpret_cast<const char*>(arg0),
-                              static_cast<int>(arg1));
-        break;
+    // case SYS_access:
+    //     *result = hook_access(reinterpret_cast<const char*>(arg0),
+    //                           static_cast<int>(arg1));
+    //     break;
 
     case SYS_faccessat:
         *result = hook_faccessat(static_cast<int>(arg0),
@@ -183,10 +183,10 @@ static inline int hook(long syscall_number,
         *result = hook_dup(static_cast<unsigned int>(arg0));
         break;
 
-    case SYS_dup2:
-        *result = hook_dup2(static_cast<unsigned int>(arg0),
-                            static_cast<unsigned int>(arg1));
-        break;
+    // case SYS_dup2:
+    //     *result = hook_dup2(static_cast<unsigned int>(arg0),
+    //                         static_cast<unsigned int>(arg1));
+    //     break;
 
     case SYS_dup3:
         *result = hook_dup3(static_cast<unsigned int>(arg0),
@@ -194,11 +194,11 @@ static inline int hook(long syscall_number,
                             static_cast<int>(arg2));
         break;
 
-    case SYS_getdents:
-        *result = hook_getdents(static_cast<unsigned int>(arg0),
-                                reinterpret_cast<struct linux_dirent *>(arg1),
-                                static_cast<unsigned int>(arg2));
-        break;
+    // case SYS_getdents:
+    //     *result = hook_getdents(static_cast<unsigned int>(arg0),
+    //                             reinterpret_cast<struct linux_dirent *>(arg1),
+    //                             static_cast<unsigned int>(arg2));
+    //     break;
 
     case SYS_mkdirat:
         *result = hook_mkdirat(static_cast<unsigned int>(arg0),
@@ -206,17 +206,17 @@ static inline int hook(long syscall_number,
                                static_cast<mode_t>(arg2));
         break;
 
-    case SYS_mkdir:
-        *result = hook_mkdirat(AT_FDCWD,
-                               reinterpret_cast<const char *>(arg0),
-                               static_cast<mode_t>(arg1));
-        break;
+    // case SYS_mkdir:
+    //     *result = hook_mkdirat(AT_FDCWD,
+    //                            reinterpret_cast<const char *>(arg0),
+    //                            static_cast<mode_t>(arg1));
+    //     break;
 
-    case SYS_chmod:
-        *result = hook_fchmodat(AT_FDCWD,
-                                reinterpret_cast<char*>(arg0),
-                                static_cast<mode_t>(arg1));
-        break;
+    // case SYS_chmod:
+    //     *result = hook_fchmodat(AT_FDCWD,
+    //                             reinterpret_cast<char*>(arg0),
+    //                             static_cast<mode_t>(arg1));
+    //     break;
 
     case SYS_fchmod:
         *result = hook_fchmod(static_cast<unsigned int>(arg0),
@@ -242,12 +242,12 @@ static inline int hook(long syscall_number,
                                static_cast<unsigned long>(arg1));
         break;
 
-    case SYS_readlink:
-        *result = hook_readlinkat(AT_FDCWD,
-                                  reinterpret_cast<const char *>(arg0),
-                                  reinterpret_cast<char *>(arg1),
-                                  static_cast<int>(arg2));
-        break;
+    // case SYS_readlink:
+    //     *result = hook_readlinkat(AT_FDCWD,
+    //                               reinterpret_cast<const char *>(arg0),
+    //                               reinterpret_cast<char *>(arg1),
+    //                               static_cast<int>(arg2));
+    //     break;
 
     case SYS_readlinkat:
         *result = hook_readlinkat(static_cast<int>(arg0),
@@ -262,13 +262,13 @@ static inline int hook(long syscall_number,
                              static_cast<unsigned long>(arg2));
         break;
 
-    case SYS_rename:
-        *result = hook_renameat(AT_FDCWD,
-                                reinterpret_cast<const char *>(arg0),
-                                AT_FDCWD,
-                                reinterpret_cast<const char *>(arg1),
-                                0);
-        break;
+    // case SYS_rename:
+    //     *result = hook_renameat(AT_FDCWD,
+    //                             reinterpret_cast<const char *>(arg0),
+    //                             AT_FDCWD,
+    //                             reinterpret_cast<const char *>(arg1),
+    //                             0);
+    //     break;
 
     case SYS_renameat:
         *result = hook_renameat(static_cast<int>(arg0),
