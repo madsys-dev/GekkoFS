@@ -75,29 +75,29 @@ int hook_close(int fd) {
     return syscall_no_intercept(SYS_close, fd);
 }
 
-int hook_stat(const char* path, struct stat* buf) {
+// int hook_stat(const char* path, struct stat* buf) {
 
-    LOG(DEBUG, "{}() called with path: \"{}\", buf: {}", 
-        __func__, path, fmt::ptr(buf));
+//     LOG(DEBUG, "{}() called with path: \"{}\", buf: {}", 
+//         __func__, path, fmt::ptr(buf));
 
-    std::string rel_path;
-    if (CTX->relativize_path(path, rel_path, false)) {
-            return with_errno(adafs_stat(rel_path, buf));
-    }
-    return syscall_no_intercept(SYS_stat, rel_path.c_str(), buf);
-}
+//     std::string rel_path;
+//     if (CTX->relativize_path(path, rel_path, false)) {
+//             return with_errno(adafs_stat(rel_path, buf));
+//     }
+//     return syscall_no_intercept(SYS_stat, rel_path.c_str(), buf);
+// }
 
-int hook_lstat(const char* path, struct stat* buf) {
+// int hook_lstat(const char* path, struct stat* buf) {
 
-    LOG(DEBUG, "{}() called with path: \"{}\", buf: {}", 
-        __func__, path, fmt::ptr(buf));
+//     LOG(DEBUG, "{}() called with path: \"{}\", buf: {}", 
+//         __func__, path, fmt::ptr(buf));
 
-    std::string rel_path;
-    if (CTX->relativize_path(path, rel_path)) {
-        return with_errno(adafs_stat(rel_path, buf));
-    }
-    return syscall_no_intercept(SYS_lstat, rel_path.c_str(), buf);
-}
+//     std::string rel_path;
+//     if (CTX->relativize_path(path, rel_path)) {
+//         return with_errno(adafs_stat(rel_path, buf));
+//     }
+//     return syscall_no_intercept(SYS_lstat, rel_path.c_str(), buf);
+// }
 
 int hook_fstat(unsigned int fd, struct stat* buf) {
 
@@ -282,21 +282,21 @@ int hook_symlinkat(const char * oldname, int newdfd, const char * newname) {
 }
 
 
-int hook_access(const char* path, int mask) {
+// int hook_access(const char* path, int mask) {
 
-    LOG(DEBUG, "{}() called path: \"{}\", mask: {}", 
-        __func__, path, mask);
+//     LOG(DEBUG, "{}() called path: \"{}\", mask: {}", 
+//         __func__, path, mask);
 
-    std::string rel_path;
-    if (CTX->relativize_path(path, rel_path)) {
-        auto ret = adafs_access(rel_path, mask);
-        if(ret < 0) {
-            return -errno;
-        }
-        return ret;
-    }
-    return syscall_no_intercept(SYS_access, rel_path.c_str(), mask);
-}
+//     std::string rel_path;
+//     if (CTX->relativize_path(path, rel_path)) {
+//         auto ret = adafs_access(rel_path, mask);
+//         if(ret < 0) {
+//             return -errno;
+//         }
+//         return ret;
+//     }
+//     return syscall_no_intercept(SYS_access, rel_path.c_str(), mask);
+// }
 
 int hook_faccessat(int dirfd, const char * cpath, int mode) {
 
@@ -377,16 +377,16 @@ int hook_dup(unsigned int fd) {
     return syscall_no_intercept(SYS_dup, fd);
 }
 
-int hook_dup2(unsigned int oldfd, unsigned int newfd) {
+// int hook_dup2(unsigned int oldfd, unsigned int newfd) {
 
-    LOG(DEBUG, "{}() called with oldfd: {}, newfd: {}", 
-        __func__, oldfd, newfd);
+//     LOG(DEBUG, "{}() called with oldfd: {}, newfd: {}", 
+//         __func__, oldfd, newfd);
 
-    if (CTX->file_map()->exist(oldfd)) {
-        return with_errno(adafs_dup2(oldfd, newfd));
-    }
-    return syscall_no_intercept(SYS_dup2, oldfd, newfd);
-}
+//     if (CTX->file_map()->exist(oldfd)) {
+//         return with_errno(adafs_dup2(oldfd, newfd));
+//     }
+//     return syscall_no_intercept(SYS_dup2, oldfd, newfd);
+// }
 
 int hook_dup3(unsigned int oldfd, unsigned int newfd, int flags) {
 
@@ -402,16 +402,16 @@ int hook_dup3(unsigned int oldfd, unsigned int newfd, int flags) {
     return syscall_no_intercept(SYS_dup3, oldfd, newfd, flags);
 }
 
-int hook_getdents(unsigned int fd, struct linux_dirent *dirp, unsigned int count) {
+// int hook_getdents(unsigned int fd, struct linux_dirent *dirp, unsigned int count) {
 
-    LOG(DEBUG, "{}() called with fd: {}, dirp: {}, count: {}", 
-        __func__, fd, fmt::ptr(dirp), count);
+//     LOG(DEBUG, "{}() called with fd: {}, dirp: {}, count: {}", 
+//         __func__, fd, fmt::ptr(dirp), count);
 
-    if (CTX->file_map()->exist(fd)) {
-        return with_errno(getdents(fd, dirp, count));
-    }
-    return syscall_no_intercept(SYS_getdents, fd, dirp, count);
-}
+//     if (CTX->file_map()->exist(fd)) {
+//         return with_errno(getdents(fd, dirp, count));
+//     }
+//     return syscall_no_intercept(SYS_getdents, fd, dirp, count);
+// }
 
 
 int hook_getdents64(unsigned int fd, struct linux_dirent64 *dirp, unsigned int count) {

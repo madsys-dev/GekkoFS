@@ -311,7 +311,7 @@ PreloadContext::protect_user_fds() {
 
     LOG(DEBUG, "Protecting application fds [{}, {}]", 0, MAX_USER_FDS - 1);
 
-    const int nullfd = ::syscall_no_intercept(SYS_open, "/dev/null", O_RDONLY);
+    const int nullfd = ::syscall_no_intercept(SYS_openat, AT_FDCWD, "/dev/null", O_RDONLY);
     assert(::syscall_error_code(nullfd) == 0);
     protected_fds_.set(nullfd);
 
