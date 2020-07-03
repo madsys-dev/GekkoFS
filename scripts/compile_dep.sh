@@ -392,7 +392,7 @@ if check_dependency "rocksdb" "${DEP_CONFIG[@]}"; then
     CURR=${SOURCE}/rocksdb
     cd "${CURR}"
     make clean
-    USE_RTTI=1 make -j"${CORES}" static_lib
+    USE_RTTI=1 make -j"${CORES}" static_lib DISABLE_WARNING_AS_ERROR=1
     INSTALL_PATH="${INSTALL}" make install
 fi
 
@@ -402,7 +402,7 @@ if check_dependency "syscall_intercept" "${DEP_CONFIG[@]}"; then
     CURR=${SOURCE}/syscall_intercept
     prepare_build_dir "${CURR}"
     cd "${CURR}"/build
-    $CMAKE -DCMAKE_INSTALL_PREFIX="${INSTALL}" -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_EXAMPLES:BOOL=OFF -DBUILD_TESTS:BOOK=OFF ..
+    $CMAKE -DCMAKE_INSTALL_PREFIX="${INSTALL}" -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_EXAMPLES:BOOL=OFF -DBUILD_TESTS:BOOK=OFF ..
     make install
 fi
 

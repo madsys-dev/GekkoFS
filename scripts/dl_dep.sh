@@ -316,12 +316,12 @@ fi
 
 # get Mercury
 if check_dependency "mercury" "${DEP_CONFIG[@]}"; then
-    clonedeps "mercury" "https://github.com/mercury-hpc/mercury" "fd410dfb9852b2b98d21113531f3058f45bfcd64"  "--recurse-submodules" &
+    clonedeps "mercury" "https://github.com/wangrunji0408/mercury" "5181fce902dfd55b7a0e2d9ad2cadfed1f58ee38"  "-b v0.6-fix --recurse-submodules" &
 fi
 
 # get Argobots
 if check_dependency "argobots" "${DEP_CONFIG[@]}"; then
-    wgetdeps "argobots" "https://github.com/pmodels/argobots/archive/v1.0rc1.tar.gz" &
+    wgetdeps "argobots" "https://github.com/pmodels/argobots/archive/v1.0.tar.gz" &
 fi
 
 # get Margo
@@ -336,7 +336,7 @@ fi
 
 # get syscall_intercept
 if check_dependency "syscall_intercept" "${DEP_CONFIG[@]}"; then
-    clonedeps "syscall_intercept" "https://github.com/pmem/syscall_intercept.git" "cc3412a2ad39f2e26cc307d5b155232811d7408e" "" "syscall_intercept.patch" &
+    clonedeps "syscall_intercept" "https://github.com/wangrunji0408/syscall_intercept.git" "be1fcf16c285f201fbc0436f5cf37e30d5bd89be" "-b aarch64" &
 fi
 
 # get date
